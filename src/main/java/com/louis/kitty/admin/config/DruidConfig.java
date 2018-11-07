@@ -1,7 +1,5 @@
 package com.louis.kitty.admin.config;
 
-import java.sql.SQLException;
-
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
 import javax.sql.DataSource;
@@ -45,30 +43,29 @@ public class DruidConfig {
         druidDataSource.setTestOnReturn(properties.isTestOnReturn());
         druidDataSource.setPoolPreparedStatements(properties.isPoolPreparedStatements());
         druidDataSource.setMaxPoolPreparedStatementPerConnectionSize(properties.getMaxPoolPreparedStatementPerConnectionSize());
-        
         try {
             druidDataSource.setFilters(properties.getFilters());
             druidDataSource.init();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
         return druidDataSource;
     }
     /**
-     * 注册Servlet信息， 配置监控视图
-     *
+     * 注册Servlet信息，配置监控视图
      * @return
      */
     @Bean
     @ConditionalOnMissingBean
     public ServletRegistrationBean<Servlet> druidServlet(){
-        ServletRegistrationBean<Servlet> servletRegistrationBean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
+        ServletRegistrationBean<Servlet> servletRegistrationBean = new ServletRegistrationBean<Servlet>(new StatViewServlet(), "/druid/*");
+        //TODO 优化黑名单和白名单，已经druid的账户和密码使其能够从数据库中直接读取数据
         //白名单
-        servletRegistrationBean.addInitParameter("allow", "192.168.1.195");
-        //IP黑名单
-        servletRegistrationBean.addInitParameter("deny", "192.168.1.126");
-        //登录账号
+        servletRegistrationBean.addInitParameter("allow", "192.168.0.127");
+        //IP黑名单 (存在共同时，deny优先于allow) : 如果满足deny的话提示:Sorry, you are not permitted to view this page.
+        servletRegistrationBean.addInitParameter("deny", "192.168.0.127");
+        //登录查看信息的账号和密码，用于登录Druid监控后台
         servletRegistrationBean.addInitParameter("loginUserName", "admin");
         servletRegistrationBean.addInitParameter("loginPassword", "admin");
         //是否能够重置数据
@@ -77,14 +74,13 @@ public class DruidConfig {
     }
     
     /**
-     * 注册Filter信息, 监控拦截器
-     *
+     * 注册Filter信息，监控拦截器 
      * @return
      */
     @Bean
     @ConditionalOnMissingBean
     public FilterRegistrationBean<Filter> filterRegistrationBean(){
-        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<Filter>();
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");

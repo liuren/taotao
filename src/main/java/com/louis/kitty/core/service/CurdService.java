@@ -1,11 +1,3 @@
-/**   
- * @Title: CurdService.java 
- * @Package com.louis.kitty.core.service 
- * @Description: TODO(用一句话描述该文件做什么) 
- * @author lr
- * @date 2018年11月6日 上午10:42:23 
- * @version V1.0.0   
- */
 package com.louis.kitty.core.service;
 
 import java.util.List;
@@ -13,66 +5,46 @@ import java.util.List;
 import com.louis.kitty.admin.page.PageRequest;
 import com.louis.kitty.admin.page.PageResult;
 
-/** 
- * @ClassName: CurdService 
- * @Description: 通用CURD操作
- * @author lr
- * @date 2018年11月6日 上午10:42:23 
- *  
+/**
+ * 通用CURD接口
  */
 public interface CurdService<T> {
-    /**
-     * @Title: save 
-     * @Description: 保存操作
-     * @param @param record
-     * @param @return  参数说明 
-     * @return int    返回类型 
-     * @throws
-     */
-    int save(T record);
-    /**
-     * @Title: upate 
-     * @Description: 更新操作
-     * @param @param record
-     * @param @return  参数说明 
-     * @return int    返回类型 
-     * @throws
-     */
-    int upate(T record);
-    /**
-     * @Title: delete 
-     * @Description: 删除操作
-     * @param @param record
-     * @param @return  参数说明 
-     * @return int    返回类型 
-     * @throws
-     */
-    int delete(T record);
-    /**
-     * @Title: delete 
-     * @Description: 批量删除操作
-     * @param @param records
-     * @param @return  参数说明 
-     * @return int    返回类型 
-     * @throws
-     */
-    int delete(List<T> records);
-    /**
-     * @Title: findById 
-     * @Description: 根据ID查询
-     * @param @param id
-     * @param @return  参数说明 
-     * @return T    返回类型 
-     * @throws
-     */
-    T findById(Long id);
-    
-    /**
-     * @Title: findPage 
-     * @Description: 分页查询
-     * @param pageRequest 自定义统一分页查询要求
-     * @return PageResult 自定义统一分返回类型 
-     * @throws
-     */
-    PageResult findPage(PageRequest pageRequest);
+	
+	/**
+	 * 保存操作
+	 * @param record
+	 * @return
+	 */
+	int save(T record);
+	
+	/**
+	 * 删除操作
+	 * @param record
+	 * @return
+	 */
+	int delete(T record);
+	
+	/**
+	 * 批量删除操作
+	 * @param entities
+	 */
+	int delete(List<T> records);
+	
+	/**
+	 * 根据ID查询
+	 * @param id
+	 * @return
+	 */
+	T findById(Long id);
+	
+        /**
+                 * 分页查询
+	 * 这里统一封装了分页请求和结果，避免直接引入具体框架的分页对象, 如MyBatis或JPA的分页对象
+	 * 从而避免因为替换ORM框架而导致服务层、控制层的分页接口也需要变动的情况，替换ORM框架也不会
+	 * 影响服务层以上的分页接口，起到了解耦的作用
+	 * @param pageRequest 自定义，统一分页查询请求
+	 * @return PageResult 自定义，统一分页查询结果
+         */
+	PageResult findPage(PageRequest pageRequest);
+	
 }

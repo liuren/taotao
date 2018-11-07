@@ -17,17 +17,19 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any()).build();
+                .paths(PathSelectors.any())
+                .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Kitty API Doc")
-                .description("This is a restful api document of Kitty")
-                .version("V 1.0.0")
+                .title("Lion Api Doc")
+                .description("This is a restful api document of Lion.")
+                .version("1.0.0")
                 .build();
     }
 }

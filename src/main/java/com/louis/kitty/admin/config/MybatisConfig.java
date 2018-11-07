@@ -18,15 +18,16 @@ public class MybatisConfig {
     private DataSource dataSource;
     
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setTypeAliasesPackage("com.louis.kitty.*.model");
+    public SqlSessionFactory sqlSessionFactory() throws Exception{
+        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        //扫描Model类
+        sessionFactory.setTypeAliasesPackage("com.louis.kitty.*.model");
         
-        //读取配置文件
+        //加载Mybaits配置文件
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:**/sqlmap/*.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath*:**/sqlmap/*.xml"));
         
-        return sessionFactoryBean.getObject();
+        return sessionFactory.getObject();
     }
 }

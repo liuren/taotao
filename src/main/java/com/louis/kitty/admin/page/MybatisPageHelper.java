@@ -10,8 +10,6 @@ package com.louis.kitty.admin.page;
 
 import java.util.List;
 
-import org.apache.el.util.ReflectionUtil;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.louis.kitty.admin.utils.ReflectionUtils;
@@ -55,7 +53,7 @@ public class MybatisPageHelper {
         pageResult.setPageSize(pageInfo.getPageSize());
         pageResult.setTotalSize(pageInfo.getTotal());
         pageResult.setTotalPages(pageInfo.getPages());
-        pageResult.setConent(pageInfo.getList());
+        pageResult.setContent(pageInfo.getList());
         return pageResult;
     }
 }
