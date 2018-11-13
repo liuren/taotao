@@ -4,7 +4,9 @@ server:
         uri-encoding: UTF-8
         max-threads: 1000
         min-spare-threads: 30
-    port: 8088
+    port: 8001
+    session:
+        timeout:7200
     context-path: /lion-admin
 # DataSource
 spring:

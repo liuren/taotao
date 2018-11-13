@@ -2,10 +2,10 @@ package com.louis.kitty.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.louis.kitty.admin.model.SysMenu;
@@ -29,9 +29,9 @@ public class SysMenuController {
         return HttpResult.ok(this.sysMenuService.delete(record));
     }
     
-    @GetMapping(value = "/findNavTree/{userName}")
-    public HttpResult findNavTree(@PathVariable("userName") String userName) {
-        return HttpResult.ok(this.sysMenuService.findTree(userName,1));
+    @GetMapping(value="/findNavTree")
+    public HttpResult findNavTree(@RequestParam String userName) {
+            return HttpResult.ok(sysMenuService.findTree(userName, 1));
     }
     
     @GetMapping(value = "/findMenuTree")
