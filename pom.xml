@@ -25,6 +25,7 @@
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<docker.image.prefix>kitty</docker.image.prefix>
 		<fastjson.version>1.2.48</fastjson.version>
+		<commons-lang3>3.4</commons-lang3>
 		<spring.boot.admin.version>2.0.0</spring.boot.admin.version>
 	</properties>
 
@@ -45,6 +46,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
+		<!--spring整合elasticsearch包-->
+        <dependency>  
+           <groupId>org.springframework.boot</groupId>  
+           <artifactId>spring-boot-starter-data-elasticsearch</artifactId>  
+       </dependency>
 		<!--spring-boot-admin -->
 		<dependency>
 			<groupId>de.codecentric</groupId>
@@ -107,6 +113,11 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3}</version>
 		</dependency>
 	</dependencies>
 
